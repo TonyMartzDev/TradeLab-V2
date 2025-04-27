@@ -310,6 +310,7 @@ h2 {
 
     .navbar {
         height: 70px;
+        padding: 0.7rem;
     }
     .footer-content {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -331,6 +332,14 @@ h2 {
 @media (max-width: 576px) {
     .container {
         padding: 10px;
+    }
+
+    .navbar {
+        padding: 0.4rem;
+    }
+
+    .nav-brand a {
+        word-break: break-word;
     }
 }
 
