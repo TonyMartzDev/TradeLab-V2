@@ -1,8 +1,39 @@
 # Changelog
 
+## [0.1.6] - 2025-04-28
+
+### Added
+
+- Continuous Integration/Continuous Deployment
+  - GitHub Actions workflow for automated testing
+  - Support for multiple Node.js versions (18.x, 20.x)
+  - Automated dependency installation and test execution
+  - Prepared configuration for PostgreSQL service integration
+
+### Development
+
+- Testing Infrastructure
+  - Jest configuration for frontend (jsdom environment)
+  - Jest configuration for backend (node environment)
+  - Test coverage reporting
+  - Separate test configurations for frontend and backend components
+
+### Dependencies
+
+- Added testing libraries
+  - @testing-library/dom for frontend testing
+- Database connectivity
+  - Added PostgreSQL client (pg)
+  - Updated SQLite implementation (sqlite, sqlite3)
+- Security
+  - Added bcryptjs for password hashing
+- Configuration
+  - Added dotenv for environment variable management
+
 ## [0.1.5] - 2025-03-03
 
 ### Added
+
 - Custom Notification System
   - Added notifications.js for site-wide notifications
   - Support for success, error, warning, and info messages
@@ -14,6 +45,7 @@
   - FontAwesome icons for different message types
 
 ### Enhanced
+
 - Form Handling
   - Added name attributes to all form inputs
   - Proper form data collection using FormData API
@@ -21,6 +53,7 @@
   - Loading indicator during trade operations
 
 ### Development
+
 - Module System
   - Converted frontend JavaScript to use ES6 modules
   - Proper import/export of shared functionality
@@ -29,6 +62,7 @@
 ## [0.1.4] - 2025-03-02
 
 ### Added
+
 - Custom Trade IDs
   - Added trade_id field to trades table
   - Support for frontend-generated unique trade IDs
@@ -36,6 +70,7 @@
   - Backward compatibility with database auto-increment IDs
 
 ### Enhanced
+
 - Error Handling
   - Added proper 404 handling for missing static files
   - Prevented accidental serving of index.html for missing resources
@@ -43,6 +78,7 @@
   - Separate handling for API vs static file 404s
 
 ### Development
+
 - Added comprehensive debug logging (temporary)
   - SQL query logging with parameters
   - Database operation results
@@ -52,12 +88,14 @@
 ## [0.1.3] - 2025-03-01
 
 ### Added
+
 - Documentation
   - Created comprehensive data flow architecture diagram
   - Added detailed documentation for data flow between components
   - Included examples of common operations (create, delete, view)
 
 ### Changed
+
 - Backend Improvements
   - Added health check endpoint with simplified date format
   - Enhanced database initialization logging
@@ -67,6 +105,7 @@
 ## [0.1.2] - 2025-02-27
 
 ### Added
+
 - Backend Implementation
   - Express server setup with SQLite database
   - RESTful API endpoints for trades:
@@ -90,6 +129,7 @@
 ## [0.1.1] - 2025-02-27
 
 ### Added
+
 - Recent Trades Table
   - Display of 10 most recent trades
   - Proper formatting for dates, numbers, currency, and percentages
@@ -103,6 +143,7 @@
   - Event listener cleanup
 
 ### Enhanced
+
 - Form Validation
   - Real-time numeric input validation
   - Visual feedback with success/error states
@@ -112,6 +153,7 @@
 ## [0.1.0] - 2025-02-27
 
 ### Added
+
 - Initial project setup with front-end and back-end structure
   - Front-end folder containing styles, JavaScript, HTML, and assets
   - Empty back-end folder prepared for future development
@@ -122,6 +164,7 @@
     - Postgres templates for production launch
 
 ### Features
+
 - Trade Entry Form
   - Real-time form validation for numeric inputs (entry price, exit price, quantity)
   - Visual feedback with success/error states
@@ -129,6 +172,7 @@
   - Support for both integer and decimal number inputs
 
 ### UI/UX Improvements
+
 - Form Validation Styling
   - Added success state with green border and background (rgba(63, 176, 118, 0.2))
   - Added error state with red border and background (rgba(255, 0, 0, 0.05))
@@ -136,6 +180,7 @@
   - Added smooth transitions for validation state changes
 
 ### Layout & Responsiveness
+
 - Fixed horizontal scrollbar issues
   - Added width:100% to container elements
   - Added overflow-x:hidden to prevent unwanted scrolling
@@ -143,6 +188,7 @@
   - Adjusted minimum column widths from 250px to 200px
 
 ### Data Management
+
 - Added Recent Trades Table
   - Dynamic table generation from trade data
   - Columns for date, symbol, direction, market, prices, quantity, investment, PNL, ROI, and notes
@@ -150,6 +196,7 @@
   - Integration with Trade Manager for data handling
 
 ### Technical Improvements
+
 - Implemented proper numeric input validation
   - Regex pattern for validating integers and decimals
   - Empty value handling
