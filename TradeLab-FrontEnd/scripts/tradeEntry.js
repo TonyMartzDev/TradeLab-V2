@@ -33,7 +33,14 @@ document.addEventListener("DOMContentLoaded", async function () {
   const long = document.querySelector(".direction-btn.long");
   const short = document.querySelector(".direction-btn.short");
 
-  // Global 
+  // Custom confirmation dialog
+  const confirmDialog = document.getElementById("confirmDialog");
+  const closeConfirm = document.querySelector(".close-confirm");
+  const confirmCancel = document.getElementById("confirmCancel");
+  const confirmOk = document.getElementById("confirmOk");
+  const confirmMessage = document.getElementById("confirmMessage");
+
+  // Global
   // const api = tradeAPI;
   // const tradeObjectHandler = new TradeObjectHandler();
 
@@ -56,29 +63,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     direction.value = "short";
   });
 
-  // Function to open modal and populate with trade data
-  function openEditModal(trade) {
-    editTradeId.value = trade.id;
-    // For date input, use the date portion only
-    const tradeDate = new date(trade.date);
-    editDate.value = tradeDate.toISOString().split("T")[0];
-    tradeDate.setHours(0, 0, 0, 0);
-    editSymbol.value = trade.symbol.toUpperCase();
-    editDirection.value = trade.direction;
-    editMarket.value = trade.market;
-    editEntryPrice.value = trade.entryPrice;
-    editExitPrice.value = trade.exitPrice;
-    editQuantity.value = trade.quantity;
-    editNotes.value = trade.notes || "";
-    editModal.style.display = "block";
-  }
-
-  // Function to close modal
-  function closeEditModal() {
-    editModal.style.display = "none";
-    editForm.reset();
-  }
-
   // Function to submit form with trade data
   async function submitForm(event) {
     event.preventDefault(); // Prevent default form submission
@@ -97,13 +81,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       notes: formData.get("notes"),
     };
 
-    // validateForm();
     console.log(formData);
-    console.log('This is the tradeData:', tradeData);
+    console.log("This is the tradeData:", tradeData);
 
     showSuccessMessage("Trade added successfully!");
-    console.log('Success from tradeEntry.js');
-    tradeObjectHandler.addTrade(tradeData);
+    console.log("Success from tradeEntry.js");
+    // tradeObjectHandler.addTrade(tradeData);
     // tradeAPI.createTrade(tradeData);
 
     // Check storage option first
@@ -125,6 +108,31 @@ document.addEventListener("DOMContentLoaded", async function () {
     //     showErrorMessage("Failed to add trade. Please try again.");
     //   }
     // }
+
+    tradeForm.reset();
+  }
+
+  // Function to open modal and populate with trade data
+  function openEditModal(trade) {
+    editTradeId.value = trade.id;
+    // For date input, use the date portion only
+    const tradeDate = new date(trade.date);
+    editDate.value = tradeDate.toISOString().split("T")[0];
+    tradeDate.setHours(0, 0, 0, 0);
+    editSymbol.value = trade.symbol.toUpperCase();
+    editDirection.value = trade.direction;
+    editMarket.value = trade.market;
+    editEntryPrice.value = trade.entryPrice;
+    editExitPrice.value = trade.exitPrice;
+    editQuantity.value = trade.quantity;
+    editNotes.value = trade.notes || "";
+    editModal.style.display = "block";
+  }
+
+  // Function to close modal
+  function closeEditModal() {
+    editModal.style.display = "none";
+    editForm.reset();
   }
 
   // Close modal when clicking close button or cancel
@@ -250,13 +258,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
-  // Custom confirmation dialog
-  const confirmDialog = document.getElementById("confirmDialog");
-  const closeConfirm = document.querySelector(".close-confirm");
-  const confirmCancel = document.getElementById("confirmCancel");
-  const confirmOk = document.getElementById("confirmOk");
-  const confirmMessage = document.getElementById("confirmMessage");
-
   function showConfirmDialog(message) {
     return new Promise((resolve) => {
       confirmMessage.textContent = message;
@@ -313,33 +314,36 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
-  async function loadRecentTrades() {
-    // Show loading notification
-    const loadingNotification = showInfoMessage('Loading recent trades...', true);
-    
-    try {
-      let trades;
-      if (localStorage.getItem("indexedDB")) {
-        // Use IndexedDB
-        // if (!tradeObjectHandler.db) {
-        //   await tradeObjectHandler.init();
-        // }
-        trades = await tradeObjectHandler.loadTrades() || [];
-      } else {
-        // Use SQLite via API
-        const response = await api.getRecentTrades();
-        trades = response || [];
-      }
-      generateTable(trades);
-      // Remove loading notification and show success
-      showSuccessMessage('Trades loaded successfully');
-    } catch (error) {
-      console.error("Error loading trades:", error);
-      showErrorNotification(
-        error.message || "Error loading trades. Please try again."
-      );
-    }
-  }
+  // async function loadRecentTrades() {
+  //   // Show loading notification
+  //   const loadingNotification = showInfoMessage(
+  //     "Loading recent trades...",
+  //     true
+  //   );
+
+  //   try {
+  //     let trades;
+  //     if (localStorage.getItem("indexedDB")) {
+  //       // Use IndexedDB
+  //       // if (!tradeObjectHandler.db) {
+  //       //   await tradeObjectHandler.init();
+  //       // }
+  //       trades = (await tradeObjectHandler.loadTrades()) || [];
+  //     } else {
+  //       // Use SQLite via API
+  //       const response = await api.getRecentTrades();
+  //       trades = response || [];
+  //     }
+  //     generateTable(trades);
+  //     // Remove loading notification and show success
+  //     showSuccessMessage("Trades loaded successfully");
+  //   } catch (error) {
+  //     console.error("Error loading trades:", error);
+  //     showErrorNotification(
+  //       error.message || "Error loading trades. Please try again."
+  //     );
+  //   }
+  // }
 
   function generateTable(trades) {
     const tableBody = document.querySelector("#tradesTable tbody");
@@ -389,5 +393,5 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   // Load initial trades
-  loadRecentTrades();
+  // loadRecentTrades();
 });
