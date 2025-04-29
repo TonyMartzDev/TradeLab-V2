@@ -5,7 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint:frontend": "eslint scripts",
+    "test:frontend": "jest --config jest.config.js --testPathPattern=tests",
+    "lint": "eslint .",
+    "test:all": "npm run test && npm run test:frontend"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
