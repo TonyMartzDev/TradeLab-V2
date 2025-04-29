@@ -1,6 +1,6 @@
 # .github/workflows/ci.yml
 
-name: Node.js CI # Name of the workflow
+name: jsdom CI # Name of the workflow
 
 # Controls when the workflow will run
 on:
