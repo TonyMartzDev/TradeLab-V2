@@ -1,10 +1,10 @@
 // User Account Interface
 
 class UserAccountInterface {
-    userID;
-    username;
-    email;
-    password;
+  userID;
+  username;
+  email;
+  password;
     
 }
 

@@ -1,4 +1,4 @@
-import { showSuccessMessage, showErrorMessage, showWarningMessage, showInfoMessage } from './notifications.js';
+import { showSuccessMessage } from "./notifications.js";
 // import TradeObjectHandler from './data/TradeObjectHandler.js';
 // import { tradeAPI } from './api.js';
 
@@ -179,11 +179,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   //   }
   // };
 
-  // Trade form data validation
-  editForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    validateForm();
-  });
 
   tradeForm.addEventListener("submit", submitForm);
 
@@ -229,32 +224,24 @@ document.addEventListener("DOMContentLoaded", async function () {
       updateInputValidation(input);
     }
   });
-  function validateForm() {
-    // validation of trade data using pristine.js
-    var validate = pristine.validate();
-
-    if (validate) {
-      submitForm();
-    }
-  }
 
   // Recent trades table
   function safeValue(value, type = "text") {
     if (value === null || value === undefined) return "-";
     switch (type) {
-      case "currency":
-        return typeof value === "number"
-          ? value.toLocaleString("en-US", {
-              style: "currency",
-              currency: "USD",
-            })
-          : "-";
-      case "percentage":
-        return typeof value === "number" ? `${(value * 100).toFixed(2)}%` : "-";
-      case "number":
-        return typeof value === "number" ? value.toFixed(2) : "-";
-      default:
-        return value.toString();
+    case "currency":
+      return typeof value === "number"
+        ? value.toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+        })
+        : "-";
+    case "percentage":
+      return typeof value === "number" ? `${(value * 100).toFixed(2)}%` : "-";
+    case "number":
+      return typeof value === "number" ? value.toFixed(2) : "-";
+    default:
+      return value.toString();
     }
   }
 
@@ -295,24 +282,24 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   }
 
-  async function deleteTrade(tradeId) {
-    const confirmed = await showConfirmDialog(
-      "Are you sure you want to delete this trade?"
-    );
-    if (confirmed) {
-      try {
-        await window.tradeAPI.deleteTrade(tradeId);
-        await loadRecentTrades();
-        showNotification("Trade deleted successfully!", "success");
-      } catch (error) {
-        console.error("Error deleting trade:", error);
-        showNotification(
-          error.message || "Error deleting trade. Please try again.",
-          "error"
-        );
-      }
-    }
-  }
+  // async function deleteTrade(tradeId) {
+  //   const confirmed = await showConfirmDialog(
+  //     "Are you sure you want to delete this trade?"
+  //   );
+  //   if (confirmed) {
+  //     try {
+  //       await window.tradeAPI.deleteTrade(tradeId);
+  //       await loadRecentTrades();
+  //       showNotification("Trade deleted successfully!", "success");
+  //     } catch (error) {
+  //       console.error("Error deleting trade:", error);
+  //       showNotification(
+  //         error.message || "Error deleting trade. Please try again.",
+  //         "error"
+  //       );
+  //     }
+  //   }
+  // }
 
   // async function loadRecentTrades() {
   //   // Show loading notification
@@ -386,9 +373,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (editBtn)
         editBtn.addEventListener("click", () => openEditModal(trade));
       if (deleteBtn)
-        deleteBtn.addEventListener("click", () => deleteTrade(trade.id));
+      // deleteBtn.addEventListener("click", () => deleteTrade(trade.id));
 
-      tableBody.appendChild(row);
+        tableBody.appendChild(row);
     });
   }
 

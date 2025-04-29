@@ -1,5 +1,5 @@
 // jest.frontend.config.js
-module.exports = {
+export default {
   // Set the environment to simulate a browser DOM
   testEnvironment: "jsdom",
 

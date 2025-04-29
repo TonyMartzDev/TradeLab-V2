@@ -14,6 +14,10 @@ export default [
         fetch: "readonly",
         alert: "readonly",
         navigator: "readonly",
+        requestAnimationFrame: "readonly",
+        setTimeout: "readonly",
+        clearTimeout: "readonly",
+        indexedDB: "readonly",
       },
     },
     // Apply linting rules to all JavaScript files
@@ -24,23 +28,23 @@ export default [
       // Error prevention
       "no-unused-vars": "warn",
       "no-undef": "error",
-      "no-console": "warn",
+      "no-console": ["warn", { allow: ["error", "warn"] }],
       "no-debugger": "warn",
-      
+
       // Style consistency
-      "semi": ["error", "always"],
-      "quotes": ["warn", "double"],
-      "indent": ["warn", 2],
+      semi: ["error", "always"],
+      quotes: ["warn", "double"],
+      indent: ["warn", 2],
       "comma-dangle": ["warn", "always-multiline"],
       "arrow-parens": ["warn", "always"],
-      
+
       // Best practices
-      "eqeqeq": ["error", "always"],
+      eqeqeq: ["error", "always"],
       "no-var": "warn",
       "prefer-const": "warn",
       "no-multiple-empty-lines": ["warn", { max: 2 }],
       "max-len": ["warn", { code: 100, ignoreComments: true }],
-      
+
       // ES Modules
       "import/no-unresolved": "off", // Browser imports don't need resolution
       "import/extensions": "off", // Allow .js extensions in imports

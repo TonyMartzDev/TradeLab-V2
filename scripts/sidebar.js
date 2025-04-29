@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sidebar.classList.toggle("collapsed");
     localStorage.setItem(
       "sidebarState",
-      sidebar.classList.contains("collapsed") ? "collapsed" : "expanded"
+      sidebar.classList.contains("collapsed") ? "collapsed" : "expanded",
     );
   }
 
@@ -51,13 +51,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Close sidebar when clicking outside on mobile
-  document.addEventListener('click', (event) => {
+  document.addEventListener("click", (event) => {
     if (window.innerWidth <= 992 &&
         !sidebar.contains(event.target) &&
-        !sidebar.classList.contains('collapsed')
+        !sidebar.classList.contains("collapsed")
     ) {
-        sidebar.classList.add('collapsed');
-        localStorage.setItem("sidebarState", "collapsed");
+      sidebar.classList.add("collapsed");
+      localStorage.setItem("sidebarState", "collapsed");
     }
-  })
+  });
 });

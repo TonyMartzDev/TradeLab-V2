@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Update CTA buttons to point to auth page if not logged in
-  document.querySelectorAll('a[href="#"]').forEach((link) => {
+  document.querySelectorAll("a[href=\"#\"]").forEach((link) => {
     if (
       link.classList.contains("btn-primary") ||
       link.classList.contains("cta-button")

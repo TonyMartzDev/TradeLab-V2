@@ -1,30 +1,30 @@
 // Notification System
 class NotificationSystem {
-    constructor() {
-        this.container = this.createContainer();
-    }
+  constructor() {
+    this.container = this.createContainer();
+  }
 
-    createContainer() {
-        const container = document.createElement('div');
-        container.id = 'notification-container';
-        container.style.cssText = `
+  createContainer() {
+    const container = document.createElement("div");
+    container.id = "notification-container";
+    container.style.cssText = `
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 9999;
         `;
-        document.body.appendChild(container);
-        return container;
-    }
+    document.body.appendChild(container);
+    return container;
+  }
 
-    show(message, type = 'info', duration = 3000, isLoading = false) {
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
+  show(message, type = "info", duration = 3000, isLoading = false) {
+    const notification = document.createElement("div");
+    notification.className = `notification notification-${type}`;
         
-        // Icon based on type and loading state
-        const icon = this.getIcon(type, isLoading);
+    // Icon based on type and loading state
+    const icon = this.getIcon(type, isLoading);
         
-        notification.innerHTML = `
+    notification.innerHTML = `
             <div class="notification-content">
                 ${icon}
                 <span class="notification-message">${message}</span>
@@ -32,55 +32,55 @@ class NotificationSystem {
             <button class="notification-close">×</button>
         `;
 
-        // Add to DOM
-        this.container.appendChild(notification);
+    // Add to DOM
+    this.container.appendChild(notification);
 
-        // Add styles dynamically
-        this.addStyles();
+    // Add styles dynamically
+    this.addStyles();
 
-        // Setup close button
-        const closeBtn = notification.querySelector('.notification-close');
-        closeBtn.addEventListener('click', () => this.hide(notification));
+    // Setup close button
+    const closeBtn = notification.querySelector(".notification-close");
+    closeBtn.addEventListener("click", () => this.hide(notification));
 
-        // Auto-remove after duration
-        setTimeout(() => this.hide(notification), duration);
+    // Auto-remove after duration
+    setTimeout(() => this.hide(notification), duration);
 
-        // Animate in
-        requestAnimationFrame(() => {
-            notification.style.transform = 'translateX(0)';
-            notification.style.opacity = '1';
-        });
+    // Animate in
+    requestAnimationFrame(() => {
+      notification.style.transform = "translateX(0)";
+      notification.style.opacity = "1";
+    });
+  }
+
+  hide(notification) {
+    notification.style.transform = "translateX(100%)";
+    notification.style.opacity = "0";
+    setTimeout(() => notification.remove(), 300);
+  }
+
+  getIcon(type, isLoading = false) {
+    if (isLoading) {
+      return "<i class=\"fas fa-spinner fa-spin\"></i>";
     }
-
-    hide(notification) {
-        notification.style.transform = 'translateX(100%)';
-        notification.style.opacity = '0';
-        setTimeout(() => notification.remove(), 300);
+    switch(type) {
+    case "success":
+      return "<i class=\"fas fa-check-circle\"></i>";
+    case "error":
+      return "<i class=\"fas fa-exclamation-circle\"></i>";
+    case "warning":
+      return "<i class=\"fas fa-exclamation-triangle\"></i>";
+    default:
+      return "<i class=\"fas fa-info-circle\"></i>";
     }
+  }
 
-    getIcon(type, isLoading = false) {
-        if (isLoading) {
-            return '<i class="fas fa-spinner fa-spin"></i>';
-        }
-        switch(type) {
-            case 'success':
-                return '<i class="fas fa-check-circle"></i>';
-            case 'error':
-                return '<i class="fas fa-exclamation-circle"></i>';
-            case 'warning':
-                return '<i class="fas fa-exclamation-triangle"></i>';
-            default:
-                return '<i class="fas fa-info-circle"></i>';
-        }
-    }
+  addStyles() {
+    // Only add styles once
+    if (document.getElementById("notification-styles")) return;
 
-    addStyles() {
-        // Only add styles once
-        if (document.getElementById('notification-styles')) return;
-
-        const styleSheet = document.createElement('style');
-        styleSheet.id = 'notification-styles';
-        styleSheet.textContent = `
+    const styleSheet = document.createElement("style");
+    styleSheet.id = "notification-styles";
+    styleSheet.textContent = `
             .notification {
                 background: var(--card-bg);
                 border-left: 4px solid;
@@ -160,8 +160,8 @@ class NotificationSystem {
                 opacity: 1;
             }
         `;
-        document.head.appendChild(styleSheet);
-    }
+    document.head.appendChild(styleSheet);
+  }
 }
 
 // Create global instance
@@ -169,29 +169,29 @@ const notifications = new NotificationSystem();
 
 // Helper functions
 function showSuccessMessage(message) {
-    notifications.show(message, 'success');
+  notifications.show(message, "success");
 }
 
 function showErrorMessage(message) {
-    notifications.show(message, 'error');
+  notifications.show(message, "error");
 }
 
 function showWarningMessage(message) {
-    notifications.show(message, 'warning');
+  notifications.show(message, "warning");
 }
 
 function showInfoMessage(message, isLoading = false) {
-    if (isLoading) {
-        return notifications.show(message, 'info', 0, true); // Duration 0 means it won't auto-dismiss
-    }
-    return notifications.show(message, 'info');
+  if (isLoading) {
+    return notifications.show(message, "info", 0, true); // Duration 0 means it won't auto-dismiss
+  }
+  return notifications.show(message, "info");
 }
 
 // Export for module usage
 export {
-    notifications as default,
-    showSuccessMessage,
-    showErrorMessage,
-    showWarningMessage,
-    showInfoMessage
+  notifications as default,
+  showSuccessMessage,
+  showErrorMessage,
+  showWarningMessage,
+  showInfoMessage,
 };
