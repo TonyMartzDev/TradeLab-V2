@@ -1,0 +1,48 @@
+# .github/workflows/frontend-ci.yml
+
+name: Frontend CI # Workflow name
+
+# Controls when the workflow will run (same triggers as backend CI usually)
+on:
+  push:
+    branches: [ main, develop ] # Adjust branch names as needed
+  pull_request:
+    branches: [ main, develop ] # Adjust branch names as needed
+
+jobs:
+  frontend-checks: # Job ID
+    name: Frontend Lint & Test # Job name displayed on GitHub
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    strategy:
+      matrix:
+        # Use same Node versions as backend CI for consistency
+        node-version: [18.x, 20.x]
+
+    steps:
+      # 1. Get the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up the specified Node.js version
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm' # Enable caching for npm dependencies
+
+      # 3. Install dependencies securely and quickly
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Run Frontend Linters (Requires "lint:frontend" script in package.json)
+      - name: Run linters
+        run: npm run lint:frontend
+
+      # 5. Run Frontend Tests (Requires "test:frontend" script and config)
+      - name: Run tests
+        run: npm run test:frontend
+
+      # 6. Build Step (Optional - Add if you implement a frontend build process later)
+      # - name: Build frontend assets
+      #   run: npm run build:frontend # Assumes a "build:frontend" script

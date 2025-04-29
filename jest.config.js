@@ -1,31 +1,26 @@
-// jest.config.js
+// jest.frontend.config.js
 module.exports = {
-  // For frontend tests (Node.js environment)
-  // If you run backend/frontend tests separately, you might have multiple configs
-  // or dynamically set this. For now, 'jsdom' is good for frontend focus.
+  // Set the environment to simulate a browser DOM
   testEnvironment: "jsdom",
 
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
 
-  // Indicates whether the coverage information should be collected while executing the test
+  // Collect coverage specifically for frontend code if desired
   collectCoverage: true,
-
-  // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: "coverage-frontend", // Keep frontend coverage separate
 
   // A list of paths to directories that Jest should use to search for files in
-  roots: ["<rootDir>/src", "<rootDir>/tests"], // Adjust if your code/tests are elsewhere
+  // Point this to where your frontend code and tests reside
+  roots: ["<rootDir>/"], // Adjust if your structure differs
 
-  // The glob patterns Jest uses to detect test files (default is usually good)
+  // Or use testMatch to be more specific about test file locations
   // testMatch: [
-  //   "**/__tests__/**/*.[jt]s?(x)",
-  //   "**/?(*.)+(spec|test).[jt]s?(x)"
+  //   "<rootDir>/src/public/**/?(*.)+(spec|test).[jt]s?(x)"
   // ],
 
-  // Consider adding setup files if needed later (e.g., for global test setup/teardown)
-  // setupFilesAfterEnv: ['./tests/setup.js'],
+  // You might need setup files for polyfills, testing-library setup etc.
+  // setupFilesAfterEnv: ['<rootDir>/tests/frontend-setup.js'],
 
-  // Verbose output can be helpful during development
   verbose: true,
 };
