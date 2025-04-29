@@ -1,2 +1,5 @@
 coverage
 .env
+# Parcel
+.parcel-cache/
+dist/
