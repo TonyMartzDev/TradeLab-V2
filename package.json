@@ -21,6 +21,7 @@
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
-    "@testing-library/dom": "^10.4.0"
+    "@testing-library/dom": "^10.4.0",
+    "jest-environment-jsdom": "^29.7.0"
   }
 }
