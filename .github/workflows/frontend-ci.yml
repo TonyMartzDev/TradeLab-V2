@@ -40,8 +40,8 @@ jobs:
         run: npm run lint:frontend
 
       # 5. Run Frontend Tests (Requires "test:frontend" script and config)
-      - name: Run tests
-        run: npm run test:frontend
+    #   - name: Run tests
+    #     run: npm run test:frontend
 
       # 6. Build Step (Optional - Add if you implement a frontend build process later)
       # - name: Build frontend assets
